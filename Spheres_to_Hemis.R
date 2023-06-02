@@ -120,6 +120,6 @@ convert_spheres_to_hemis <-
       print(paste0("Estimated ", round(((length(list_of_panos) - i) * T_average)/60, 1), " minutes remaining."))
     }
     
-    write.csv(output, "./TESTcanopy_output.csv", row.names = FALSE)
+    write.csv(output, "./canopy_output.csv", row.names = FALSE)
     
   }
