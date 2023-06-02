@@ -4,7 +4,9 @@
 
 # When I first developed the method to estimate canopy metrics from smartphone spherical panoramas, I used a somewhat convoluted workflow involving command line image manipulation, a plugin for ImageJ to do binarization, and a script I wrote in AutoHotKey language to automate mouse clicks on a GUI for canopy measures. Admittedly, it is a difficult pipeline for others to easily replicate.
 
-# In an effort to make life easiest, I spent some time building out the pipeline entirely in R.
+# In an effort to make life easiest, I spent some time building out the pipeline entirely in R, including a sourceable function for converting spherical panos to hemispherical images.
+
+
 
 # Below, I will walk through the steps of the workflow. Check out the other script in the repo titled "SphericalCanopyPanoProcessing.R" for a loop version of the pipeline to batch process images.
 
@@ -35,7 +37,9 @@ library(hemispheR) # For binarization and estimating canopy measures
 
 # Path to raw equirectangular panos. Place all of your panos in a subdirectory within your working directory
 focal_path <- "./raw_panos/"
-focal_image_path <- paste0(focal_path, "PXL_20230519_164804198.PHOTOSPHERE_small.jpg")
+focal_image <- "PXL_20230519_164804198.PHOTOSPHERE_small.jpg"
+
+focal_image_path <- paste0(focal_path, focal_image)
 focal_image_name <- sub("\\.[^.]+$", "", basename(focal_image_path))
 
 # The metadata contains lots of information about the photo.
@@ -91,7 +95,7 @@ pano_hemisphere <- pano %>%
   # Rotating expands the canvas, so we crop back to the dimensions of the hemisphere's diameter
   image_crop(paste0(pano_width, "x", pano_width, "-", pano_width/2, "-", pano_width/2))
 
-# Plot the hemispherical image. The image looks funny because the outer pixels are extended ny interpolation and we've rotated the image. Most analyses define a bounding perimeter to exclude any pixels outside of the circular hemisphere, so the weird border shouldn't matter. But, we can add a black mask to make the images look better.
+# Plot the hemispherical image. The image looks funny because the outer pixels are extended by interpolation and we've rotated the image. Most analyses define a bounding perimeter to exclude any pixels outside of the circular hemisphere, so the weird border shouldn't matter. But, we can add a black mask to make the images look better.
 pano_hemisphere
 
 ### Create black mask for the image (this isn't really necessary, but makes the images look nicer)
@@ -172,6 +176,10 @@ output_report <-
   )
 
 # We can take a look at our report and then write it out to our directory.
-output_report
+glimpse(output_report)
 
-write.csv(output_report, "./canopy_output.csv")
+write.csv(output_report, "./canopy_output.csv", row.names = FALSE)
+
+read.csv("./canopy_output.csv") %>%
+  select(-X) %>%
+  glimpse()
