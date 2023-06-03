@@ -6,14 +6,25 @@
 
 # In an effort to make life easiest, I spent some time building out the pipeline entirely in R, including a sourceable function for converting spherical panos to hemispherical images.
 
+# The easiest way to convert all of your spherical panos to hemispherical projections is to source the function from my github;
 
+source("https://raw.githubusercontent.com/andisa01/Spherical-Pano-UPDATE/main/Spheres_to_Hemis.R")
 
-# Below, I will walk through the steps of the workflow. Check out the other script in the repo titled "SphericalCanopyPanoProcessing.R" for a loop version of the pipeline to batch process images.
+# When you source the script, it will install and load all necessary packages. It also downloads the masking file that we will use to black out the periphery of the images.
+# The script contains the function "convert_spheres_to_hemis", which does exactly what is says. You'll need to put all of your raw spherical panos into a subdirectory within your working directory. We can then pass the path to the directory as an argument to the function.
+convert_spheres_to_hemis(focal_path = "./raw_panos/")
+
+# This function will loop through all of your raw panos, convert them to masked, north-oriented upward-facing hemispherical images and put them all in a folder called "masked_hemispheres" in your working directory. It will also output a csv file called "canopy_output.csv" that contains information about the image.
+
+# Below, I will walk through the steps of the workflow that happend in the convert_spheres_to_hemis" function.
+# If you just want to use the function, you can skip to the analysis function.
+# I've also written a script to do all of the conversion AND analysis in batch in the other script in the repo titled "SphericalCanopyPanoProcessing.R".
+
 
 ### Load necessary libraries:
 library(tidyverse) # For data manipulation
 
-# ImageMagick is a command line tool for image manipulation. We will call ImageMagick from within R using the magick package, but first you'll need to download [https://imagemagick.org/script/download.php] and install ImageMagick on your machine.
+# ImageMagick is a command line tool for image manipulation. We will call ImageMagick from within R using the magick package.
 
 library(magick) # For image manipulation
 # Check to ensure that ImageMagick is installed.
