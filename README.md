@@ -24,7 +24,7 @@ This function will loop through all of your raw panos, convert them to masked, n
 
 Please see my [blog post](https://www.azandisresearch.com/2023/05/20/update-smartphone-hemispherical-image-analysis/) for a detailed walk-though of how the function works.
 
-![Example a spherical panorama that has been converted into a masked hemispherical projection.](https://github.com/andisa01/Spherical-Pano-UPDATE/blob/main/masked_hemispheres/PXL_20230519_164804198.PHOTOSPHERE_smallhemi_masked.jpg" Example a spherical panorama that has been converted into a masked hemispherical projection.")
+![Example a spherical panorama that has been converted into a masked hemispherical projection.](https://github.com/andisa01/Spherical-Pano-UPDATE/blob/main/masked_hemispheres/PXL_20230519_164804198.PHOTOSPHERE_smallhemi_masked.jpg?raw=true" "Example a spherical panorama that has been converted into a masked hemispherical projection.")
 
 ### Please take a look at my other blog posts that detail:
 [Tips for taking better spherical panorama images](https://www.azandisresearch.com/2021/07/16/tips-for-taking-spherical-panoramas/)
