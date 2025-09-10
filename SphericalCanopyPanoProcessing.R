@@ -149,7 +149,7 @@ for(i in 1:length(list_of_panos)){
       canopy_report
     ) %>%
     rename(
-      GF = x,
+      DIFN = x,
       HemiFile = id
     )
   
